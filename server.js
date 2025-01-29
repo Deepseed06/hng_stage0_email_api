@@ -1,9 +1,6 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
 
-// Load environment variables
-dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,12 +12,23 @@ const corsOptions = {
     allowedHeaders: ["Content-Type", "Authorization"],
   }
 
+  app.use(cors(corsOptions))
+  app.use(express.json())
 
 // API route
-app.get('/api/info', (req, res) => {
-  const email = process.env.EMAIL || 'Email not set';
-  const currentDatetime = new Date().toISOString();
 
+app.get('/api/info', (req, res) => {
+    const email = process.env.EMAIL || 'Email not set';
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+    const isValid = isValidEmail(email)
+    const currentDatetime = new Date().toISOString();
+  if(!isValid) {
+    console.log('wrong email')
+    return
+  };
   res.json({
     email: email,
     datetime: currentDatetime
@@ -34,7 +42,6 @@ app.listen(port, () => {
 });
 
 // Test the API
-// import fetch from 'node-fetch';
 
 const testAPI = async () => {
   try {
