@@ -36,8 +36,8 @@ app.get('/api/info', (req, res) => {
   };
   res.json({
     email: email,
-    githubUrl: githubUrl,
-    timestamp: currentDatetime
+    current_datetime: currentDatetime,
+    github_url: githubUrl
   });
 });
 
