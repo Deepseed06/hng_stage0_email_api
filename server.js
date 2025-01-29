@@ -16,7 +16,9 @@ const corsOptions = {
   app.use(express.json())
 
 // API route
-
+app.get('/', (req, res ) => {
+    res.send('Welcome to my API')
+})
 app.get('/api/info', (req, res) => {
     const email = process.env.EMAIL || 'Email not set';
     function isValidEmail(email) {
