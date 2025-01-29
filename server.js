@@ -26,7 +26,9 @@ app.get('/api/info', (req, res) => {
     const isValid = isValidEmail(email)
     const currentDatetime = new Date().toISOString();
   if(!isValid) {
-    console.log('wrong email')
+    res.status(404).json({
+        message: "Invalid Email",
+      });
     return
   };
   res.json({
