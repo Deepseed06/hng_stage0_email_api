@@ -24,6 +24,7 @@ app.get('/api/info', (req, res) => {
         return emailRegex.test(email);
     }
     const isValid = isValidEmail(email)
+    const githubUrl = process.env.GITHUB_URL || 'github url  not set';
     const currentDatetime = new Date().toISOString();
   if(!isValid) {
     res.status(404).json({
@@ -33,7 +34,8 @@ app.get('/api/info', (req, res) => {
   };
   res.json({
     email: email,
-    datetime: currentDatetime
+    githubUrl: githubUrl,
+    timestamp: currentDatetime
   });
 });
 
